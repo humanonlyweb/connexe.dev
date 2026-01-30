@@ -60,7 +60,14 @@ export default defineEventHandler(async event => {
             log.set({ warning: 'content_not_found_in_kv', contentId: match.id })
             return null
           }
-          return Object.assign(JSON.parse(contentItemJson), { score: match.score })
+          const item = JSON.parse(contentItemJson)
+          return {
+            id: item.id,
+            title: item.title,
+            author: item.author,
+            url: item.url,
+            score: match.score,
+          }
         }),
       )
     ).flatMap(item => (item ? [item] : []))

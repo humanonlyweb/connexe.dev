@@ -60,7 +60,16 @@ export default defineEventHandler(async event => {
             log.set({ warning: 'developer_not_found_in_kv', developerId: match.id })
             return null
           }
-          return Object.assign(JSON.parse(developerJson), { score: match.score })
+          const dev = JSON.parse(developerJson)
+          return {
+            id: dev.id,
+            name: dev.name,
+            avatar: dev.avatar,
+            intro: dev.intro,
+            skills: dev.skills,
+            linkToPortfolio: dev.linkToPortfolio,
+            score: match.score,
+          }
         }),
       )
     ).flatMap(item => (item ? [item] : []))

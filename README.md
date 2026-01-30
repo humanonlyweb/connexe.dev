@@ -96,17 +96,17 @@ bun run dev
 ### Ingest Content
 
 ```
-POST /api/injest/content
+POST /api/ingest/content
 Header: x-connexe-ingest-secret: <your-secret>
-Body: [{ id, title, description, url, tags, lang, category }]
+Body: [{ id, title, author, url, tags, lang }]
 ```
 
 ### Ingest Developers
 
 ```
-POST /api/injest/developer
+POST /api/ingest/developer
 Header: x-connexe-ingest-secret: <your-secret>
-Body: [{ id, name, avatar, intro, skills, github, lang }]
+Body: [{ id, name, avatar, intro, skills, linkToPortfolio, lang }]
 ```
 
 > **Note:** Content and developer IDs must be **64 bytes or less** due to Cloudflare Vectorize limitations. Keep IDs short and descriptive (e.g., `layered-architecture-nuxt-part-1` instead of `a-layered-architecture-for-nuxt-fullstack-applications-part-1-server-side`).
@@ -124,6 +124,22 @@ GET /api/recommend/developer?skills=vue,typescript&limit=5&lang=en
 ```
 
 ## Deployment
+
+Deployment is automated via GitHub Actions when pushing to the `main` branch.
+
+### Required Secrets
+
+Ensure you add the following secrets to your GitHub repository (**Settings > Secrets and variables > Actions**):
+
+| Secret | Description |
+| :--- | :--- |
+| `CLOUDFLARE_API_TOKEN` | Your Cloudflare API token with Workers/Vectorize access. |
+| `NUXT_CONNEXE_INGEST_SECRET` | A secure secret key for authenticating data ingestion. |
+| `WORKER_URL` | The public URL of your deployed Worker (e.g., `https://connexe.dev`). |
+
+### Manual Deployment
+
+If you need to deploy manually:
 
 ```bash
 bun run build
