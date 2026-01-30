@@ -3,11 +3,10 @@ import { z } from 'zod'
 export const ContentItemSchema = z.object({
   id: z.string(),
   title: z.string(),
-  description: z.string(),
+  author: z.string(),
   url: z.url(),
   tags: z.array(z.string()).optional(),
   lang: z.string().default('en'),
-  category: z.enum(['article', 'podcast', 'video']).default('article'),
 })
 
 export const ContentIngestSchema = z.array(ContentItemSchema)
@@ -24,7 +23,7 @@ export const DeveloperItemSchema = z.object({
   avatar: z.url(),
   intro: z.string(),
   skills: z.array(z.string()),
-  github: z.url(),
+  linkToPortfolio: z.url(),
   lang: z.string().default('en'),
 })
 

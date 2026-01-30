@@ -23,7 +23,7 @@ export default defineEventHandler(async event => {
         status: 500,
         message: 'Failed to generate embeddings',
         why: 'AI model did not return embedding data',
-        fix: 'Try again later or contact support if this persists',
+        fix: 'Try again later? 😩',
       })
     }
 
@@ -33,7 +33,6 @@ export default defineEventHandler(async event => {
       shape: embeddings.shape,
     })
 
-    log.set({ step: 'querying_vector_index', filter: { lang }, topK: limit })
     log.set({ step: 'querying_vector_index', filter: { lang }, topK: limit })
     const matchedResults = (await env.CONNEXE_DEVELOPER_VECTOR_INDEX.query(embeddings.data[0], {
       topK: limit,

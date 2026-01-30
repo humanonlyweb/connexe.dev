@@ -1,0 +1,22 @@
+// REQUIREMENTS:
+// 1. IDs:
+//    - Pattern: "connexe-content-[subsequent-number]" (must be unique).
+//    - Length: Must be 64 bytes or less due to Cloudflare Vectorize limits.
+[
+  {
+    "id": "connexe-content-1",
+    "title": "Validating Route Params Client-Side in Nuxt 4 with Zod",
+    "author": "HumanOnlyWeb",
+    "url": "https://humanonlyweb.com/blog/validating-route-params-client-side-in-nuxt-4-with-zod",
+    "tags": ["nuxt", "zod", "validation"],
+    "lang": "en"
+  },
+  {
+    "id": "connexe-content-2",
+    "title": "A Layered Architecture for Nuxt Fullstack applications [Part 1 — Server side]",
+    "author": "HumanOnlyWeb",
+    "url": "https://humanonlyweb.com/blog/layered-architecture-for-nuxt-4-fullstack-applications-part-1",
+    "tags": ["nuxt", "architecture", "fullstack"],
+    "lang": "en"
+  }
+]

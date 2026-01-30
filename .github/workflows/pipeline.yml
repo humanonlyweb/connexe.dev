@@ -48,10 +48,10 @@ jobs:
       matrix:
         include:
           - name: Content
-            file: data/content.json
+            file: data/content.jsonc
             endpoint: /api/ingest/content
           - name: Developers
-            file: data/developers.json
+            file: data/developers.jsonc
             endpoint: /api/ingest/developer
 
     steps:
@@ -59,6 +59,11 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
 
       - name: Detect file changes
         id: changed-files
@@ -73,11 +78,16 @@ jobs:
           NUXT_CONNEXE_INGEST_SECRET: ${{ secrets.NUXT_CONNEXE_INGEST_SECRET }}
         run: |
           echo "Ingesting ${{ matrix.file }}..."
-          
+
+          CLEAN_JSON=$(bun -e "
+            const data = await Bun.file('${{ matrix.file }}').json();
+            console.log(JSON.stringify(data));
+          ")
+
           response=$(curl -s -w "\n%{http_code}" -X POST "$WORKER_URL${{ matrix.endpoint }}" \
             -H "Content-Type: application/json" \
             -H "x-connexe-ingest-secret: $NUXT_CONNEXE_INGEST_SECRET" \
-            -d @${{ matrix.file }})
+            -d "$CLEAN_JSON")
 
           http_code=$(echo "$response" | tail -n1)
           body=$(echo "$response" | head -n-1)

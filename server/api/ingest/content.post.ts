@@ -25,7 +25,7 @@ export default defineEventHandler(async event => {
     for (const item of ingestItems) {
       log.set({ step: 'processing_item', itemId: item.id })
 
-      const textToEmbed = `${item.title}: ${item.description} (Tags: ${item.tags?.join(', ')})`
+      const textToEmbed = `${item.title}: (Tags: ${item.tags?.join(', ')})`
 
       log.set({ step: 'generating_embedding', itemId: item.id, textLength: textToEmbed.length })
       const embeddings = (await env.AI.run('@cf/baai/bge-large-en-v1.5', {
@@ -53,10 +53,9 @@ export default defineEventHandler(async event => {
         values: embeddings.data[0],
         metadata: {
           title: item.title,
-          description: item.description,
           url: item.url,
           lang: item.lang,
-          category: item.category,
+          tags: item.tags?.join(',') || '',
         },
       })
 
