@@ -1,7 +1,3 @@
-// REQUIREMENTS:
-// 1. IDs:
-//    - Pattern: "connexe-dev-[subsequent-number]" (must be unique).
-//    - Length: Must be 64 bytes or less due to Cloudflare Vectorize limits.
 [
   {
     "id": "connexe-dev-1",

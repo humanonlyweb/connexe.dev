@@ -109,7 +109,10 @@ Header: x-connexe-ingest-secret: <your-secret>
 Body: [{ id, name, avatar, intro, skills, linkToPortfolio, lang }]
 ```
 
-> **Note:** Content and developer IDs must be **64 bytes or less** due to Cloudflare Vectorize limitations. Keep IDs short and descriptive (e.g., `layered-architecture-nuxt-part-1` instead of `a-layered-architecture-for-nuxt-fullstack-applications-part-1-server-side`).
+> **Note:** IDs must be **64 bytes or less** due to Cloudflare Vectorize limitations.
+> - **Content IDs**: Use the pattern `connexe-content-[number]` (e.g., `connexe-content-1`).
+> - **Developer IDs**: Use the pattern `connexe-dev-[number]` (e.g., `connexe-dev-1`).
+> Keep IDs unique and descriptive where possible.
 
 ### Get Content Recommendations
 
