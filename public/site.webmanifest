@@ -1,0 +1,1 @@
+{"name": "Connexe","short_name": "Connexe","icons": [{ "src": "/icon-192x192.png", "type": "image/png", "sizes": "192x192" },{ "src": "/icon-512x512.png", "type": "image/png", "sizes": "512x512" },{ "src": "/icon-mask.png", "type": "image/png", "sizes": "512x512", "purpose": "maskable" }],"theme_color": "#A6F236","background_color": "#090909","display": "standalone"}

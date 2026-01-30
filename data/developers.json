@@ -1,0 +1,11 @@
+[
+  {
+    "id": "franklin-tina",
+    "name": "Teena",
+    "avatar": "https://avatars.githubusercontent.com/u/76698025?v=4",
+    "intro": "Full-stack developer specializing in Vue.js, Nuxt, Cloudflare Workers, and modern web technologies.",
+    "skills": ["vue", "nuxt", "typescript", "cloudflare-workers", "zod", "laravel", "php", "scss"],
+    "github": "https://github.com/franklin-tina",
+    "lang": "en"
+  }
+]

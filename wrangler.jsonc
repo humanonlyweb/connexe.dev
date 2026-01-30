@@ -1,0 +1,45 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "connexe",
+  "main": "./.output/server/index.mjs",
+  "compatibility_date": "2026-01-29",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "binding": "CONNEXE_ASSETS",
+    "directory": "./.output/public/",
+  },
+  "routes": [
+    {
+      "pattern": "connexe.dev",
+      "custom_domain": true,
+    },
+  ],
+  "ai": {
+    "binding": "AI",
+  },
+  "vectorize": [
+    {
+      "binding": "CONNEXE_CONTENT_VECTOR_INDEX",
+      "index_name": "connexe-content-index",
+    },
+    {
+      "binding": "CONNEXE_DEVELOPER_VECTOR_INDEX",
+      "index_name": "connexe-developer-index",
+    },
+  ],
+  "r2_buckets": [
+    {
+      "binding": "ASSETS_BUCKET",
+      "bucket_name": "connexe-assets",
+    },
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "CONTENT_STORE",
+    },
+  ],
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1,
+  },
+}

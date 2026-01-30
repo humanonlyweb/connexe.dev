@@ -1,0 +1,90 @@
+name: Connexe Pipeline
+
+on:
+  push:
+    branches: ['main']
+  workflow_dispatch:
+
+jobs:
+  deploy-backend:
+    runs-on: ubuntu-latest
+    env:
+      NUXT_CONNEXE_INGEST_SECRET: ${{ secrets.NUXT_CONNEXE_INGEST_SECRET }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Cache Bun dependencies
+        uses: actions/cache@v5.0.3
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build app
+        run: bun run build
+
+      - name: Deploy app
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          secrets: |
+            NUXT_CONNEXE_INGEST_SECRET
+
+  ingest-data:
+    runs-on: ubuntu-latest
+    needs: deploy-backend
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Content
+            file: data/content.json
+            endpoint: /api/ingest/content
+          - name: Developers
+            file: data/developers.json
+            endpoint: /api/ingest/developer
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Detect file changes
+        id: changed-files
+        uses: tj-actions/changed-files@v47
+        with:
+          files: ${{ matrix.file }}
+
+      - name: Ingest ${{ matrix.name }} Data
+        if: steps.changed-files.outputs.any_changed == 'true' || github.event_name == 'workflow_dispatch'
+        env:
+          WORKER_URL: ${{ secrets.WORKER_URL }}
+          NUXT_CONNEXE_INGEST_SECRET: ${{ secrets.NUXT_CONNEXE_INGEST_SECRET }}
+        run: |
+          echo "Ingesting ${{ matrix.file }}..."
+          
+          response=$(curl -s -w "\n%{http_code}" -X POST "$WORKER_URL${{ matrix.endpoint }}" \
+            -H "Content-Type: application/json" \
+            -H "x-connexe-ingest-secret: $NUXT_CONNEXE_INGEST_SECRET" \
+            -d @${{ matrix.file }})
+
+          http_code=$(echo "$response" | tail -n1)
+          body=$(echo "$response" | head -n-1)
+
+          if [ "$http_code" -ne 200 ]; then
+            echo "::error::${{ matrix.name }} ingestion failed with status $http_code: $body"
+            exit 1
+          else
+            echo "Success: $body"
+          fi
