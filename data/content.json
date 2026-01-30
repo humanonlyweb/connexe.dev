@@ -14,5 +14,13 @@
     "url": "https://humanonlyweb.com/blog/layered-architecture-for-nuxt-4-fullstack-applications-part-1",
     "tags": ["nuxt", "architecture", "fullstack"],
     "lang": "en"
+  },
+  {
+    "id": "connexe-content-3",
+    "title": "The Repository Pattern in Nuxt: How to Future-Proof Your Data Layer",
+    "author": "Mastering Nuxt",
+    "url": "https://masteringnuxt.com/blog/the-repository-pattern-in-nuxt-how-to-future-proof-your-data-layer",
+    "tags": ["nuxt", "repository", "data-layer"],
+    "lang": "en"
   }
 ]
