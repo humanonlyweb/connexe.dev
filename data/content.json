@@ -22,5 +22,13 @@
     "url": "https://masteringnuxt.com/blog/the-repository-pattern-in-nuxt-how-to-future-proof-your-data-layer",
     "tags": ["nuxt", "repository", "data-layer"],
     "lang": "en"
+  },
+  {
+    "id": "connexe-content-4",
+    "title": "Opinionated ESLint Setup for Vue Projects",
+    "author": "Alexander Opalic",
+    "url": "https://alexop.dev/posts/opinionated-eslint-setup-vue-projects/",
+    "tags": ["vue", "eslint", "linting"],
+    "lang": "en"
   }
 ]
