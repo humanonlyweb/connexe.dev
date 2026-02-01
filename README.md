@@ -154,7 +154,7 @@ npx wrangler deploy
 Embed Connexe widgets on your site:
 
 ```html
-<script src="https://cdn.connexe.dev/widget.js"></script>
+<script type="module" src="https://cdn.connexe.dev/widget.js"></script>
 
 <!-- Article recommendations -->
 <connexe-article topic="Vue routing"></connexe-article>
