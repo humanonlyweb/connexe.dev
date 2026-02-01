@@ -151,6 +151,11 @@ npx wrangler deploy
 
 ## Widgets
 
+The Connexe widgets are developed in a separate repository: [humanonlyweb/connexe-widget](https://github.com/humanonlyweb/connexe-widget)
+
+> [!NOTE]
+> In the future, these repositories may be consolidated into a single monorepo.
+
 Embed Connexe widgets on your site:
 
 ```html
