@@ -63,9 +63,6 @@ export default defineNuxtConfig({
     defaults: {
       weights: [400, 500, 700, 900],
     },
-    fontshare: {
-      families: [{ name: 'Clash Grotesk' }],
-    },
   },
 
   nitro: {
